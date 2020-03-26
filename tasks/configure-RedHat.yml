@@ -1,5 +1,13 @@
 ---
 
+# Run the setup module to gather facts again
+# just in case the SELinux tools were not
+# installed during the initial facts gathering
+# and variable {{ ansible_selinux }} was not defined
+
+- name: Gather facts about SELinux
+  setup:
+
 - name: Configure SELinux policy (TCP)
   seport:
     ports: "{{ squid_selinux_port_tcp | join(',') }}"
