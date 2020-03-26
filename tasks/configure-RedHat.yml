@@ -7,6 +7,7 @@
     setype: squid_port_t
     reload: yes
     state: present
+  when: ansible_selinux.status == "enabled"
 
 - name: Configure SELinux policy (UDP)
   seport:
@@ -15,9 +16,11 @@
     setype: squid_port_t
     reload: yes
     state: present
+  when: ansible_selinux.status == "enabled"
 
 - name: Enable SELinux squid_connect_any
   seboolean:
     name: squid_connect_any
     state: "{{ squid_selinux_squid_connect_any }}"
     persistent: yes
+  when: ansible_selinux.status == "enabled"
